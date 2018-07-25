@@ -35,8 +35,10 @@ import burlap.mdp.core.oo.propositional.PropositionalFunction;
 import burlap.mdp.core.oo.state.OOState;
 import burlap.mdp.core.state.State;
 import burlap.mdp.singleagent.SADomain;
+import burlap.mdp.singleagent.environment.EnvironmentOutcome;
 import burlap.mdp.singleagent.environment.SimulatedEnvironment;
 import burlap.mdp.singleagent.model.FullModel;
+import burlap.mdp.singleagent.model.SampleModel;
 import burlap.mdp.singleagent.model.TransitionProb;
 import burlap.mdp.singleagent.oo.OOSADomain;
 import burlap.shell.visual.VisualExplorer;
@@ -48,6 +50,8 @@ import org.apache.commons.lang.math.RandomUtils;
 import javax.xml.stream.Location;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Array;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.lang.System;
@@ -55,10 +59,106 @@ import java.lang.System;
 
 public class GridWorld implements DomainDistribution {
 
+    int maxX;
+    int maxY;
+
+//
+//    public SADomain[] sampleSet(int Nenv) {
+//
+//        GridWorldState[] ENV = new GridWorldState[Nenv];
+//
+//        for (int k = 0; k < Nenv; k++) { ENV[k] = sample(); }
+//
+//        return ENV;
+//    }
+
 
     @Override
     public SADomain sample() {
 
+        java.util.Random random = new Random();
+        GridLocation[] locations = new GridLocation[maxX * maxY];
+
+        for (int i = 0; i < maxX; i++) {
+            for (int j = 0; j < maxY; j++) {
+
+                double r = random.nextGaussian();
+
+                if (r < -1) { locations[5*i+j] = new GridLocation(i, j, 2, "loc"+Integer.toString(5*i+j)); } else
+                if (r > 1 ) { locations[5*i+j] = new GridLocation(i, j, 1, "loc"+Integer.toString(5*i+j)); }
+                else        { locations[5*i+j] = new GridLocation(i, j, 0, "loc"+Integer.toString(5*i+j)); }
+            }
+        }
+        // Write list of locations to current environment
+        GridWorldState s = new GridWorldState( new GridAgent(0, 0), locations );                // Default agent start location at (0, 0)
+
+        SADomain domain = new SADomain();
+
+        SampleModel gridModel = new SetGridModel();
+        domain.
+
 
     }
+
+
+    public class SetGridModel implements SampleModel {
+
+        @Override
+        public EnvironmentOutcome sample(State state, Action action) {
+
+            GridAgent agent = (GridAgent)state.get("agent");
+            int x = agent.x; int y = agent.y;
+            String actionName = action.actionName();
+
+            State outcomeState = getOutcomeState(agent.x, agent.y, actionName);
+
+            return new EnvironmentOutcome(state, action, outcomeState, 0, false);                          // TODO: r set to 0
+        }
+
+
+        public State getOutcomeState(int x, int y, String actionName) {
+
+            double[][][] TransP = getTransP();
+            List<String> actions = Arrays.asList(GridWorldDomain.ACTION_NORTH, GridWorldDomain.ACTION_EAST, GridWorldDomain.ACTION_SOUTH, GridWorldDomain.ACTION_WEST);
+            int actionId = actions.indexOf(actionName);
+
+            int outcomeStateId = Arrays.asList(TransP[actionId][maxX*x+y]).indexOf(1.0);
+            int outcomeX = getXFromId(outcomeStateId); int outcomeY = getYFromId(outcomeStateId);
+
+
+        }
+
+        @Override
+        public boolean terminal(State state) {
+            return false;
+        }
+
+        public int getXFromId(int idInArray) { return idInArray / maxX; }
+
+        public int getYFromId(int idInArray) { return idInArray % maxX; }
+
+
+        /* getTransP
+                This function generates a transition probability matrix(3d) in following format:
+                    1st layer: Action (n, e, s, w)
+                    2nd layer: Start state
+                    3rd layer: End state
+            */
+        private double[][][] getTransP() {
+
+            double[][][] TranP;
+            TranP = new double[4][maxX*maxY][maxX*maxY];
+
+            // Inner square
+            for (int r = 0; r < maxX*maxY; r++) {
+                int startx = r / maxY; int starty = r % maxY;
+                if (starty < maxY-1) { TranP[0][r][r + 1]    = 1.0; } else { TranP[0][r][r] = 1.0; }
+                if (startx < maxX-1) { TranP[1][r][r + maxY] = 1.0; } else { TranP[1][r][r] = 1.0; }
+                if (starty > 0)      { TranP[2][r][r - 1]    = 1.0; } else { TranP[2][r][r] = 1.0; }
+                if (startx > 0)      { TranP[3][r][r - maxY] = 1.0; } else { TranP[3][r][r] = 1.0; }
+            }
+            return TranP;
+        }
+    }
+
 }

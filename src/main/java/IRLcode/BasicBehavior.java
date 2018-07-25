@@ -76,7 +76,6 @@ public class BasicBehavior {
 
         env = new SimulatedEnvironment(domain, initialState);
 
-
         //VisualActionObserver observer = new VisualActionObserver(domain,
         //	GridWorldVisualizer.getVisualizer(gwdg.getMap()));
         //observer.initGUI();
