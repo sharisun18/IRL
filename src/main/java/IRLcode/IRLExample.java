@@ -108,7 +108,7 @@ public class IRLExample {
      * A recommendation for examples is to record two demonstrations that both go to the pink cell while avoiding blue ones
      * and do so from two different start locations on the left (if you keep resetting the environment, it will change where the agent starts).
      */
-    public void launchExplorer() throws FileNotFoundException {
+    public void launchExplorer() {
         SimulatedEnvironment env = new SimulatedEnvironment(this.domain, this.sg);
         VisualExplorer exp = new VisualExplorer(this.domain, env, this.v, 800, 800);
         exp.addKeyAction("w", GridWorldDomain.ACTION_NORTH, "");

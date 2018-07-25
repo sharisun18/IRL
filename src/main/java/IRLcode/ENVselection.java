@@ -1,6 +1,7 @@
 package IRLcode;
 
 import burlap.behavior.functionapproximation.dense.DenseStateFeatures;
+import burlap.behavior.policy.BoltzmannQPolicy;
 import burlap.behavior.policy.GreedyQPolicy;
 import burlap.behavior.policy.Policy;
 import burlap.behavior.policy.PolicyUtils;
@@ -14,6 +15,7 @@ import burlap.behavior.singleagent.learnfromdemo.mlirl.MLIRL;
 import burlap.behavior.singleagent.learnfromdemo.mlirl.MLIRLRequest;
 import burlap.behavior.singleagent.learnfromdemo.mlirl.commonrfs.LinearStateDifferentiableRF;
 import burlap.behavior.singleagent.learnfromdemo.mlirl.differentiableplanners.DifferentiableSparseSampling;
+import burlap.behavior.singleagent.learnfromdemo.mlirl.differentiableplanners.DifferentiableVI;
 import burlap.behavior.singleagent.planning.Planner;
 import burlap.behavior.singleagent.planning.stochastic.valueiteration.ValueIteration;
 import burlap.behavior.valuefunction.QProvider;
@@ -33,6 +35,8 @@ import burlap.mdp.core.oo.propositional.PropositionalFunction;
 import burlap.mdp.core.oo.state.OOState;
 import burlap.mdp.core.state.State;
 import burlap.mdp.singleagent.environment.SimulatedEnvironment;
+import burlap.mdp.singleagent.model.FullModel;
+import burlap.mdp.singleagent.model.TransitionProb;
 import burlap.mdp.singleagent.oo.OOSADomain;
 import burlap.shell.visual.VisualExplorer;
 import burlap.statehashing.simple.SimpleHashableStateFactory;
@@ -68,7 +72,6 @@ public class ENVselection {
     public static GridWorldDomain gwd;
     public static OOSADomain domain;
 
-    public episodeParser EP;
     public static RealMatrix[] TransP;
 
 //    public static String pathToEpisodes;  // TODO: set total rewards to be sampled
@@ -82,8 +85,7 @@ public class ENVselection {
         gwd.setNumberOfLocationTypes(Nloc);
         domain = gwd.generateDomain();
 
-        EP = new episodeParser(Nloc, maxX, maxY);
-        TransP = EP.getTransitionProbs();
+        TransP = getTransitionProbs();
     }
 
 
@@ -180,22 +182,23 @@ public class ENVselection {
 
         for (int i = 0; i < Es.length; i++) {
 
-            int maxNumValidRf = getMaxNumValidRf(Rs, Es);
+            int maxNumValidRf = getMaxNumValidRf(Rs, Es, i);
             if (maxNumValidRf > maxValidRfOfEnv) { maxValidRfOfEnv = maxNumValidRf; bestEnv = i; }
         }
         return Es[bestEnv];
     }
 
-    public int getMaxNumValidRf(LinearStateDifferentiableRF[] Rs, GridWorldState[] Es) {
+    public int getMaxNumValidRf(LinearStateDifferentiableRF[] Rs, GridWorldState[] Es, int EnvId) {
 
+        GridWorldState CurrentEnv = Es[EnvId];
         int maxNumValidRf = 0;
 
         for (int j = 0; j < Rs.length; j++) {
                                                                                                                         // TODO
-            DifferentiableSparseSampling dplanner = getDPlanner(Rs[j]);
-            GreedyQPolicy policy = new GreedyQPolicy(dplanner);
+            DifferentiableVI dplanner = getDPlanner(Rs[j]);                                                             // TODO
+            BoltzmannQPolicy policy = dplanner.planFromState(CurrentEnv);
 
-//            visualizePilicy(Es[0], dplanner, policy);
+//            visualizePilicy(CurrentEnv, dplanner, policy);
 
             RealMatrix Ppi = getPpi(policy, Es[0].touchLocations());
 
@@ -217,61 +220,31 @@ public class ENVselection {
     }
 
 
-    public static DifferentiableSparseSampling getDPlanner(LinearStateDifferentiableRF rf) {
+    public static DifferentiableVI getDPlanner(LinearStateDifferentiableRF rf) {
 
-        return new DifferentiableSparseSampling(domain, rf, 0.99, new SimpleHashableStateFactory(),
-                                                10, -1, 10);
+        return new DifferentiableVI(domain, rf, 0.99, 10, new SimpleHashableStateFactory(), 0.01, 100);
+
+//        return new ValueIteration(domain, 0.99, new SimpleHashableStateFactory(), 0.01, 100);
+
+//        return new DifferentiableSparseSampling(domain, rf, 0.99, new SimpleHashableStateFactory(),
+//                                                10, -1, 10);
     }
 
 
-    public static RealMatrix getPpi(GreedyQPolicy policy, List<GridLocation> locations) {
+    public RealMatrix getPpi(BoltzmannQPolicy policy, List<GridLocation> locations) {
 
-        double[]   pi  = getPiVector(policy, locations);
-        RealMatrix Ppi = episodeParser.getPpi(new ArrayRealVector(pi), TransP);
+        double[][] Ppi = new double[maxX*maxY][maxX*maxY];
 
-        return Ppi;
-    }
-
-
-    public static double[] getPiVector(GreedyQPolicy policy, List<GridLocation> locations) {
-
-        double[] pi = new double[4*maxX*maxY];
-
-        for (int x = 0; x < maxX; x++) {
-            for (int y = 0; y < maxY; y++) {
-
-                GridWorldState curState = new GridWorldState( new GridAgent(x, y), locations );
-                List<ActionProb> actionProbs = policy.policyDistribution(curState);
-                double[] aProbs = parseActionProb(actionProbs);
-                pi = addActionProb(pi, x, y, aProbs);
+        for (int r = 0; r < maxX*maxY; r++) {
+            for (int c = 0; c < maxX*maxY; c++) {
+                for (int i = 0; i < 4; i++) {
+                    Action action = (Action)domain.getAction(GridWorldDomain.ACTION_NORTH);
+                    State currentState = new GridWorldState( new GridAgent(r, c), locations);
+                    Ppi[r][c] += policy.actionProb(currentState, action) * TransP[i].getEntry(r,c);
+                }
             }
         }
-        return pi;
-    }
-
-
-    private static double[] parseActionProb(List<ActionProb> actionProbs) {
-
-        double[] aProbs = new double[4];
-
-        aProbs[0] = Double.parseDouble( actionProbs.get(0).toString().split(": ")[0] );
-        aProbs[1] = Double.parseDouble( actionProbs.get(2).toString().split(": ")[0] );
-        aProbs[2] = Double.parseDouble( actionProbs.get(1).toString().split(": ")[0] );
-        aProbs[3] = Double.parseDouble( actionProbs.get(3).toString().split(": ")[0] );
-
-        return aProbs;
-    }
-
-
-    private static double[] addActionProb(double[] pi, int x, int y, double[] aProbs) {
-
-        int id = 4 * (maxX*x + y); // start index
-
-        for (int i = 0; i < 4; i++) { pi[id+i] = aProbs[i]; }
-
-//        System.arraycopy(aProbs, 0, pi, id, 4);
-
-        return pi;
+        return MatrixUtils.createRealMatrix(Ppi);
     }
 
 
@@ -287,7 +260,7 @@ public class ENVselection {
 
 
     public static void visualizePilicy(State initialState,
-                                       DifferentiableSparseSampling dplanner, GreedyQPolicy P) {
+                                       DifferentiableVI dplanner, BoltzmannQPolicy P) {
 
         SimpleHashableStateFactory hashingFactory = new SimpleHashableStateFactory();
         List<State> allStates = StateReachability.getReachableStates(initialState, domain, hashingFactory);
@@ -352,6 +325,85 @@ public class ENVselection {
     }
 
 
+    public RealMatrix[] getTransitionProbs() {
+
+        System.out.format("Getting transition probabilities\n\n");
+
+        double[][][] TranP = new double[4][maxX*maxY][maxX*maxY];
+
+        // Inner square
+        for (int r = 0; r < maxX*maxY; r++) {
+            int startx = r / maxY; int starty = r % maxY;
+            if (starty < maxY-1) { TranP[0][r][r + 1]    = 1.0; } else { TranP[0][r][r] = 1.0; }
+            if (startx < maxX-1) { TranP[1][r][r + maxY] = 1.0; } else { TranP[1][r][r] = 1.0; }
+            if (starty > 0)      { TranP[2][r][r - 1]    = 1.0; } else { TranP[2][r][r] = 1.0; }
+            if (startx > 0)      { TranP[3][r][r - maxY] = 1.0; } else { TranP[3][r][r] = 1.0; }
+        }
+
+        // Print out all transition probs for all 4 directions                                                  // TODO
+//        for (int c = 0; c < 4; c++) {
+//            System.out.format("DIRECTION: %d\n\n", c);
+//
+//            for (int i = 0; i < maxX * maxY; i++) {
+//                for (int j = 0; j < maxX * maxY; j++) {
+//                    System.out.format("%.2f ", TranP[c][i][j]);
+//                }
+//                System.out.format("\n");
+//            }
+//            System.out.format("\n");
+//        }
+
+
+        // Stored as Apache matrix
+        RealMatrix[] TranP_M = new RealMatrix[4];
+        for (int i = 0; i < 4; i++) { TranP_M[i] = MatrixUtils.createRealMatrix(TranP[i]); }
+
+        return TranP_M;
+    }
+
+//    private static double[] parseActionProb(List<ActionProb> actionProbs) {
+//
+//        double[] aProbs = new double[4];
+//
+//        aProbs[0] = Double.parseDouble( actionProbs.get(0).toString().split(": ")[0] );
+//        aProbs[1] = Double.parseDouble( actionProbs.get(2).toString().split(": ")[0] );
+//        aProbs[2] = Double.parseDouble( actionProbs.get(1).toString().split(": ")[0] );
+//        aProbs[3] = Double.parseDouble( actionProbs.get(3).toString().split(": ")[0] );
+//
+//        return aProbs;
+//    }
+
+
+//    private static double[] addActionProb(double[] pi, int x, int y, double[] aProbs) {
+//
+//        int id = 4 * (maxX*x + y); // start index
+//
+//        for (int i = 0; i < 4; i++) { pi[id+i] = aProbs[i]; }
+//
+////        System.arraycopy(aProbs, 0, pi, id, 4);
+//
+//        return pi;
+//    }
+
+
+//    public static double[] getPiVector(BoltzmannQPolicy policy, List<GridLocation> locations) {
+//
+//        double[] pi = new double[4*maxX*maxY];
+//
+//        for (int x = 0; x < maxX; x++) {
+//            for (int y = 0; y < maxY; y++) {
+//
+//                GridWorldState curState = new GridWorldState( new GridAgent(x, y), locations );
+//                List<ActionProb> actionProbs = policy.policyDistribution(curState);
+//                double[] aProbs = parseActionProb(actionProbs);
+//                pi = addActionProb(pi, x, y, aProbs);
+//            }
+//        }
+//        return pi;
+//    }
+
+
+
     /**
      / --------------------------------------------------------------------------------------------------------------- /
      /                                                      Main                                                       /
@@ -362,12 +414,12 @@ public class ENVselection {
 
 //        String pathToEpisodes = "demos/4demo0.episode";
 
-        ENVselection ES = new ENVselection();
+        ENVselection     ES = new ENVselection();
         ES.interactiveIRL();
 
-//        IRLExample       EX = new IRLExample(Es[0]);
-//        EX.launchExplorer(); //choose this to record demonstrations
 
+
+//        GridWorldState[] Es = sampleEnv();
 
         //  main test
 

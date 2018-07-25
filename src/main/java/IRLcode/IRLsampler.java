@@ -146,11 +146,6 @@ public class IRLsampler {
         }
     }
 
-    /* isValid (R)
-        Given a reward vector, determine if this reward assignment meets the constraints.
-        For each state && each action, R must meet the constraints, that is:
-            (Ppi[s] - TransP[a])^T * (I - miu * Ppi)^-1 * R >= 0
-    */
     public boolean isValid(RealVector newR, RealMatrix[] TransP, RealMatrix Ppi) {
         if ( !withinRange(newR) ) { return false; }
 
