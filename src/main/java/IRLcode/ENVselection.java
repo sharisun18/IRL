@@ -51,12 +51,6 @@ import java.util.List;
 import java.util.Random;
 import java.lang.System;
 
-import static com.sun.tools.classfile.AccessFlags.Kind.Field;
-import static corejava.Format.printf;
-import static jdk.nashorn.internal.objects.Global.println;
-import static org.apache.commons.lang.math.RandomUtils.nextDouble;
-import static org.apache.commons.math3.linear.MatrixUtils.createRealIdentityMatrix;
-import static org.apache.commons.math3.linear.MatrixUtils.inverse;
 
 public class ENVselection {
 
