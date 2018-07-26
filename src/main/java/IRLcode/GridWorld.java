@@ -61,6 +61,7 @@ public class GridWorld implements DomainDistribution {
 
     int maxX;
     int maxY;
+    GridLocation[] locations = new GridLocation[maxX * maxY];
 
 //
 //    public SADomain[] sampleSet(int Nenv) {
@@ -77,7 +78,6 @@ public class GridWorld implements DomainDistribution {
     public SADomain sample() {
 
         java.util.Random random = new Random();
-        GridLocation[] locations = new GridLocation[maxX * maxY];
 
         for (int i = 0; i < maxX; i++) {
             for (int j = 0; j < maxY; j++) {
@@ -94,14 +94,14 @@ public class GridWorld implements DomainDistribution {
 
         SADomain domain = new SADomain();
 
-        SampleModel gridModel = new SetGridModel();
-        domain.
+        SampleModel gridModel = new GridModel();
+        domain.setModel(gridModel);
 
-
+        return domain;
     }
 
 
-    public class SetGridModel implements SampleModel {
+    public class GridModel implements SampleModel {
 
         @Override
         public EnvironmentOutcome sample(State state, Action action) {
@@ -115,7 +115,6 @@ public class GridWorld implements DomainDistribution {
             return new EnvironmentOutcome(state, action, outcomeState, 0, false);                          // TODO: r set to 0
         }
 
-
         public State getOutcomeState(int x, int y, String actionName) {
 
             double[][][] TransP = getTransP();
@@ -123,9 +122,17 @@ public class GridWorld implements DomainDistribution {
             int actionId = actions.indexOf(actionName);
 
             int outcomeStateId = Arrays.asList(TransP[actionId][maxX*x+y]).indexOf(1.0);
-            int outcomeX = getXFromId(outcomeStateId); int outcomeY = getYFromId(outcomeStateId);
+            int outcomeX = getFromId(outcomeStateId, 'x'); int outcomeY = getFromId(outcomeStateId, 'y');
 
+            return new GridWorldState(new GridAgent(outcomeX, outcomeY), locations);
+        }
 
+        public int getFromId(int idInArray, char axis) {
+
+            switch(axis) {
+                case 'x': return idInArray / maxX;
+                case 'y': return idInArray % maxX;
+            }             return -1;
         }
 
         @Override
@@ -133,17 +140,11 @@ public class GridWorld implements DomainDistribution {
             return false;
         }
 
-        public int getXFromId(int idInArray) { return idInArray / maxX; }
-
-        public int getYFromId(int idInArray) { return idInArray % maxX; }
-
-
         /* getTransP
-                This function generates a transition probability matrix(3d) in following format:
-                    1st layer: Action (n, e, s, w)
-                    2nd layer: Start state
-                    3rd layer: End state
-            */
+            1st layer: Action (n, e, s, w)
+            2nd layer: Start state
+            3rd layer: End state
+        */
         private double[][][] getTransP() {
 
             double[][][] TranP;
@@ -159,6 +160,11 @@ public class GridWorld implements DomainDistribution {
             }
             return TranP;
         }
+    }
+
+    public static void main() {
+
+
     }
 
 }
