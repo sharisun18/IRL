@@ -34,6 +34,8 @@ import burlap.mdp.core.oo.propositional.GroundedProp;
 import burlap.mdp.core.oo.propositional.PropositionalFunction;
 import burlap.mdp.core.oo.state.OOState;
 import burlap.mdp.core.state.State;
+import burlap.mdp.singleagent.SADomain;
+import burlap.mdp.singleagent.environment.EnvironmentOutcome;
 import burlap.mdp.singleagent.environment.SimulatedEnvironment;
 import burlap.mdp.singleagent.model.FullModel;
 import burlap.mdp.singleagent.model.TransitionProb;
@@ -91,27 +93,13 @@ public class ENVselection {
      *  locations type_2 is the most possible one (denoting paths)
      *  locations type_0 & type_1 denote pass & forbidden states (start & end states)
      */
-    public static GridWorldState[] sampleEnv() {
+    public static SADomain[] sampleEnv() {
 
-        java.util.Random random = new Random();
-        GridWorldState[] ENV    = new GridWorldState[Nenv];
+        GridWorld gridWorld = new GridWorld(5, 5);
+        SADomain[] ENV = new SADomain[Nenv];
 
         for (int k = 0; k < Nenv; k++) {
-            // Store loc type at all domain locations / set of GridLocations
-            GridLocation[] locations = new GridLocation[maxX * maxY];
-
-            for (int i = 0; i < maxX; i++) {
-                for (int j = 0; j < maxY; j++) {
-                    double r = random.nextGaussian();
-
-                    if (r < -1) { locations[5*i+j] = new GridLocation(i, j, 2, "loc"+Integer.toString(5*i+j)); } else
-                    if (r > 1 ) { locations[5*i+j] = new GridLocation(i, j, 1, "loc"+Integer.toString(5*i+j)); }
-                    else        { locations[5*i+j] = new GridLocation(i, j, 0, "loc"+Integer.toString(5*i+j)); }
-                }
-            }
-            // Write list of locations to current environment
-            GridWorldState s = new GridWorldState( new GridAgent(0, 0), locations );                // Default agent start location at (0, 0)
-            ENV[k] = s;
+            ENV[k] = gridWorld.sample();
         }
         return ENV;
     }
@@ -406,11 +394,8 @@ public class ENVselection {
 
     public static void main(String[] args) throws IOException {
 
-//        String pathToEpisodes = "demos/4demo0.episode";
-
         ENVselection     ES = new ENVselection();
         ES.interactiveIRL();
-
 
 
 //        GridWorldState[] Es = sampleEnv();

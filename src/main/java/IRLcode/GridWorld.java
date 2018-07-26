@@ -61,23 +61,17 @@ public class GridWorld implements DomainDistribution {
 
     int maxX;
     int maxY;
-    GridLocation[] locations = new GridLocation[maxX * maxY];
 
-//
-//    public SADomain[] sampleSet(int Nenv) {
-//
-//        GridWorldState[] ENV = new GridWorldState[Nenv];
-//
-//        for (int k = 0; k < Nenv; k++) { ENV[k] = sample(); }
-//
-//        return ENV;
-//    }
-
+    public GridWorld(int maxX, int maxY) {
+        this.maxX = maxX;
+        this.maxY = maxY;
+    }
 
     @Override
     public SADomain sample() {
 
         java.util.Random random = new Random();
+        GridLocation[] locations = new GridLocation[maxX * maxY];
 
         for (int i = 0; i < maxX; i++) {
             for (int j = 0; j < maxY; j++) {
@@ -94,7 +88,7 @@ public class GridWorld implements DomainDistribution {
 
         SADomain domain = new SADomain();
 
-        SampleModel gridModel = new GridModel();
+        SampleModel gridModel = new GridModel(locations);
         domain.setModel(gridModel);
 
         return domain;
@@ -103,11 +97,16 @@ public class GridWorld implements DomainDistribution {
 
     public class GridModel implements SampleModel {
 
+        GridLocation[] locations;
+
+        public GridModel(GridLocation[] locations) {
+            this.locations = locations;
+        }
+
         @Override
         public EnvironmentOutcome sample(State state, Action action) {
 
-            GridAgent agent = (GridAgent)state.get("agent");
-            int x = agent.x; int y = agent.y;
+            GridAgent agent = ((GridWorldState)state).touchAgent();
             String actionName = action.actionName();
 
             State outcomeState = getOutcomeState(agent.x, agent.y, actionName);
@@ -118,10 +117,14 @@ public class GridWorld implements DomainDistribution {
         public State getOutcomeState(int x, int y, String actionName) {
 
             double[][][] TransP = getTransP();
+
+
+
+
             List<String> actions = Arrays.asList(GridWorldDomain.ACTION_NORTH, GridWorldDomain.ACTION_EAST, GridWorldDomain.ACTION_SOUTH, GridWorldDomain.ACTION_WEST);
             int actionId = actions.indexOf(actionName);
 
-            int outcomeStateId = Arrays.asList(TransP[actionId][maxX*x+y]).indexOf(1.0);
+            int outcomeStateId = arrayIndex(TransP[actionId][maxX*x+y], 1.0);
             int outcomeX = getFromId(outcomeStateId, 'x'); int outcomeY = getFromId(outcomeStateId, 'y');
 
             return new GridWorldState(new GridAgent(outcomeX, outcomeY), locations);
@@ -145,7 +148,7 @@ public class GridWorld implements DomainDistribution {
             2nd layer: Start state
             3rd layer: End state
         */
-        private double[][][] getTransP() {
+        public double[][][] getTransP() {
 
             double[][][] TranP;
             TranP = new double[4][maxX*maxY][maxX*maxY];
@@ -160,11 +163,43 @@ public class GridWorld implements DomainDistribution {
             }
             return TranP;
         }
+
+        public int arrayIndex(double[] array, double value) {
+            for (int i = 0; i < array.length; i++) {
+                if (array[i] == value) { return i; }
+            }
+            return -1;
+        }
     }
-
-    public static void main() {
-
-
-    }
-
 }
+
+
+class GridAction implements Action {
+
+    String actionName;
+
+    public GridAction(String actionName) { this.actionName = actionName; }
+
+    @Override
+    public String actionName() { return actionName; }
+
+    @Override
+    public Action copy() { return this; }
+}
+
+
+/* Test codes
+
+        GridWorld gridWorld = new GridWorld(5, 5);
+
+        SADomain domain = gridWorld.sample();
+
+        State  state  = new GridWorldState(new GridAgent(4,4), new GridLocation(4, 4, "loc0"));
+        Action action = new GridAction(GridWorldDomain.ACTION_EAST);
+
+        EnvironmentOutcome eo = domain.getModel().sample(state, action);
+
+        System.out.println(eo.op.get("agent:x"));
+        System.out.println(eo.op.get("agent:y"));
+
+*/
