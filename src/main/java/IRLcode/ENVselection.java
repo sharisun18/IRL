@@ -74,23 +74,12 @@ public class ENVselection {
 
 
     public ENVselection() {
-
         gwd = new GridWorldDomain(maxX, maxY);
         gwd.setNumberOfLocationTypes(Nloc);
         domain = gwd.generateDomain();
     }
 
-
-    /* ------------------------------------------------- Sampling --------------------------------------------------- */
-
-
-     /* sampleEnv
-     *  For each grid in domain, sample from three locations using normal distribution
-     *  locations type_2 is the most possible one (denoting paths)
-     *  locations type_0 & type_1 denote pass & forbidden states (start & end states)
-     */
     public SADomain[] sampleEnv(int Nenv) {
-
         SADomain[] ENV = new SADomain[Nenv];
         for (int k = 0; k < Nenv; k++) { ENV[k] = DD.sample(); }
         return ENV;
@@ -98,7 +87,7 @@ public class ENVselection {
 
 
     public LinearStateDifferentiableRF[] sampleR(int numRoundExecuted,
-                                                 SADomain[] observedEs, int[][] observedTs) {              // TODO
+                                                 SADomain[] observedEs, int[][] observedTs) {               // TODO
 
         LinearStateDifferentiableRF[] Rs       = new LinearStateDifferentiableRF[Nrf];
         LocationFeatures              features = new LocationFeatures(domain, Nloc);
@@ -115,7 +104,7 @@ public class ENVselection {
     }
 
 
-    public void interactiveIRL() {
+    public void interactiveIRL() {                                                                          // TODO
 
         SADomain[] observedEs = new SADomain[Nround];
         int[][]    observedTs = new int[Nround][3];
