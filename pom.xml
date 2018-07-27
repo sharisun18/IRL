@@ -1,7 +1,7 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
     <groupId>maven-burlap</groupId>
-    <artifactId>IRLcode</artifactId>
+    <artifactId>active_irl</artifactId>
     <version>1</version>
 
     <properties>

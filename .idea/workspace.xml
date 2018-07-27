@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3cfb51d-086f-49b5-8770-824d8b42178e" name="Default" comment="" />
+    <list default="true" id="c3cfb51d-086f-49b5-8770-824d8b42178e" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/IRLcode/ENVselection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/IRLcode/ENVselection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/IRLcode/GridWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/IRLcode/GridWorld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/IRLcode/IRLExample.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/IRLcode/IRLExample.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/IRLcode/IRLExample$LeftSideGen.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/IRLcode/IRLExample$LeftSideGen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/IRLcode/IRLExample$LocationFeatures.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/IRLcode/IRLExample$LocationFeatures.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/IRLcode/IRLExample.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/IRLcode/IRLExample.class" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -10,74 +18,105 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file leaf-file-name="IRLExample.java" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/IRLExample.java">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="135">
+                    <caret line="69" column="35" selection-start-line="69" selection-start-column="35" selection-end-line="69" selection-end-column="35" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="36" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BasicBehavior.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/BasicBehavior.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="217">
-              <caret line="71" column="39" selection-start-line="71" selection-start-column="39" selection-end-line="71" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IRLExample.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/IRLExample.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
-              <folding>
-                <element signature="docComment;class#IRLExample#0" />
-                <element signature="docComment;method#runIRL#0;class#IRLExample#0" />
-                <element signature="method#visualizeRF#0;class#IRLExample#0" />
-                <element signature="method#getPolicy#0;class#IRLExample#0" />
-                <element signature="docComment;method#basicState#0;class#IRLExample#0" />
-                <element signature="method#basicState#0;class#IRLExample#0" />
-                <element signature="class#LeftSideGen#0;class#IRLExample#0" />
-                <element signature="class#LocationFeatures#0;class#IRLExample#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ENVselection.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ENVselection.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/ENVselection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="869">
-              <caret line="347" column="17" lean-forward="true" selection-start-line="347" selection-start-column="17" selection-end-line="347" selection-end-column="17" />
+            <state relative-caret-position="836">
+              <caret line="201" column="7" lean-forward="true" selection-start-line="201" selection-start-column="7" selection-end-line="201" selection-end-column="7" />
               <folding>
-                <element signature="method#sampleEnv#0;class#ENVselection#0" />
-                <element signature="method#sampleR#0;class#ENVselection#0" />
-                <element signature="method#getPiVector#0;class#ENVselection#0" />
-                <element signature="method#parseActionProb#0;class#ENVselection#0" />
-                <element signature="method#addActionProb#0;class#ENVselection#0" />
+                <element signature="method#selectEnv#0;class#ENVselection#0" />
+                <element signature="method#getMaxNumValidRf#0;class#ENVselection#0" />
+                <element signature="method#getNumValidRf#0;class#ENVselection#0" />
                 <element signature="method#getRFvector#0;class#ENVselection#0" />
-                <element signature="method#visualizePilicy#0;class#ENVselection#0" />
+                <element signature="class#LocationFeatures#0;class#ENVselection#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IRLsampler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/IRLsampler.java">
+      <file leaf-file-name="GridWorld.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/GridWorld.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2385">
-              <caret line="215" column="57" selection-start-line="215" selection-start-column="57" selection-end-line="215" selection-end-column="57" />
+            <state relative-caret-position="254">
+              <caret line="137" column="45" selection-start-line="137" selection-start-column="45" selection-end-line="137" selection-end-column="45" />
               <folding>
-                <element signature="method#binSearch#0;class#IRLsampler#0" />
-                <element signature="method#positiveResult#0;class#IRLsampler#0" />
-                <element signature="method#withinRange#0;class#IRLsampler#0" />
-                <element signature="method#generateRandomDirecVector#0;class#IRLsampler#0" />
-                <element signature="method#randDouble#0;class#IRLsampler#0" />
+                <element signature="method#GridWorld#0;class#GridWorld#0" />
+                <element signature="method#sample#0;class#GridWorld#0" />
+                <element signature="method#getState#0;class#GridWorld#0" />
+                <element signature="method#getPpi#0;class#GridWorld#0" />
+                <element signature="method#getTransitionProb#0;class#GridWorld#0" />
+                <element signature="method#launchExplorer#0;class#GridWorld#0" />
+                <element signature="method#visualizePolicy#0;class#GridWorld#0" />
+                <element signature="class#GridModel#0;class#GridWorld#0" />
+                <element signature="class#LeftSideGen#0;class#GridWorld#0" />
+                <element signature="method#setParams#0;class#LeftSideGen#0;class#GridWorld#0" />
+                <element signature="method#generateState#0;class#LeftSideGen#0;class#GridWorld#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VisualExplorer.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/edu/brown/cs/burlap/burlap/3.0.0/burlap-3.0.0.jar!/burlap/shell/visual/VisualExplorer.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="233">
+              <caret line="107" selection-start-line="107" selection-end-line="107" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GridRSampler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/GridRSampler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="139" column="27" selection-start-line="139" selection-start-column="27" selection-end-line="139" selection-end-column="27" />
+              <folding>
+                <element signature="e#6954#7013#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RewardSampler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/RewardSampler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="39" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DomainDistribution.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/DomainDistribution.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -86,19 +125,8 @@
       <file leaf-file-name="episodeParser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/episodeParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="35" column="35" selection-start-line="35" selection-start-column="35" selection-end-line="35" selection-end-column="35" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#parseEnvironment#0;class#episodeParser#0" />
-                <element signature="method#parseTrajectory#0;class#episodeParser#0" />
-                <element signature="method#getStartPosition#0;class#episodeParser#0" />
-                <element signature="method#getDirection#0;class#episodeParser#0" />
-                <element signature="method#getPolicyFromTrajectory#0;class#episodeParser#0" />
-                <element signature="method#standardizeAccessedStates#0;class#episodeParser#0" />
-                <element signature="method#getTransitionProbs#0;class#episodeParser#0" />
-                <element signature="method#getPpi#0;class#episodeParser#0" />
-              </folding>
+            <state relative-caret-position="268">
+              <caret line="296" column="45" selection-start-line="296" selection-start-column="35" selection-end-line="296" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -107,36 +135,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>print</find>
-      <find>createRealMatrix</find>
-      <find>\n</find>
-      <find>height</find>
-      <find>binary</find>
-      <find>/2</find>
-      <find>0.5</find>
-      <find>isFeasible</find>
-      <find>N_sample</find>
-      <find>N_sample_rewards</find>
-      <find>hashingfac</find>
-      <find>hashing</find>
-      <find>hash</find>
-      <find>Hash</find>
-      <find>state</find>
-      <find>vis</find>
-      <find>LocationFeatures</find>
-      <find>PF</find>
-      <find>get_transi</find>
-      <find>array</find>
-      <find>%f</find>
-      <find>trajectory</find>
+      <find>dplanner</find>
+      <find>VI</find>
+      <find>getPi</find>
+      <find>visualize</find>
+      <find>Agent</find>
+      <find>GridAgent</find>
+      <find>getAction</find>
+      <find>Ppi</find>
+      <find>episodeParser</find>
+      <find>sampleR</find>
+      <find>GridWorldDomain</find>
+      <find>random</find>
+      <find>basicState</find>
+      <find>IRLExample</find>
+      <find>TransP</find>
+      <find>Transition</find>
+      <find>sg</find>
+      <find>locations</find>
+      <find>op</find>
+      <find>EnvironmentOutcome</find>
+      <find>GridWorldState</find>
+      <find>getPpi</find>
+      <find>transition</find>
+      <find>getTrans</find>
+      <find>IRLsampler</find>
       <find>Rsampler</find>
-      <find>laun</find>
-      <find>enableEpisode</find>
-      <find>getVis</find>
-      <find>episode_parser</find>
-      <find>_</find>
-      <find>isValid</find>
-      <find>l_count</find>
+      <find>getT</find>
+      <find>getRFvector</find>
+      <find>propViewer</find>
+      <find>addKeyAction</find>
     </findStrings>
     <replaceStrings>
       <replace>ASGridWorld</replace>
@@ -148,7 +176,23 @@
       <replace>episodeParser</replace>
       <replace>sampleRewards</replace>
       <replace>lCount</replace>
+      <replace>SADomain</replace>
+      <replace>Rsampler</replace>
+      <replace>SAMPLER</replace>
     </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Shari" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="add-distribution-interface" />
+      </map>
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -164,10 +208,16 @@
         <option value="$PROJECT_DIR$/demos/5demo0.episode" />
         <option value="$PROJECT_DIR$/../../../../IRL/optimization/QuadraticOptimizationProblem.java" />
         <option value="$PROJECT_DIR$/src/main/java/IRLcode/episode_parser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/IRLcode/PlotTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/IRLcode/BasicBehavior.java" />
         <option value="$PROJECT_DIR$/src/main/java/IRLcode/episodeParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/IRLcode/IRLsampler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/IRLcode/ENVselection.java" />
+        <option value="$PROJECT_DIR$/src/main/java/IRLcode/RewardSampler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/IRLcode/GridRSampler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/IRLcode/DomainDistribution.java" />
         <option value="$PROJECT_DIR$/src/main/java/IRLcode/IRLExample.java" />
+        <option value="$PROJECT_DIR$/src/main/java/IRLcode/GridWorld.java" />
+        <option value="$PROJECT_DIR$/src/main/java/IRLcode/ENVselection.java" />
       </list>
     </option>
   </component>
@@ -179,9 +229,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="451" />
+    <option name="x" value="435" />
     <option name="y" value="23" />
-    <option name="width" value="989" />
+    <option name="width" value="1005" />
     <option name="height" value="873" />
   </component>
   <component name="ProjectView">
@@ -189,7 +239,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -197,6 +246,11 @@
             <path>
               <item name="IRL" type="b2602c69:ProjectViewProjectNode" />
               <item name="IRL" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="IRL" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IRL" type="462c0819:PsiDirectoryNode" />
+              <item name="demos" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="IRL" type="b2602c69:ProjectViewProjectNode" />
@@ -228,6 +282,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -293,6 +348,17 @@
     </configuration>
     <configuration name="IRLsampler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="IRLcode.IRLsampler" />
+      <module name="IRLcode" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="IRLcode.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+    </configuration>
+    <configuration name="PlotTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="IRLcode.PlotTest" />
       <module name="IRLcode" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
@@ -373,13 +439,15 @@
       <item itemvalue="Application.episode_parser" />
       <item itemvalue="Application.IRLExample" />
       <item itemvalue="Application.ENVselection" />
+      <item itemvalue="Application.PlotTest" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.ENVselection" />
+        <item itemvalue="Application.PlotTest" />
         <item itemvalue="Application.IRLExample" />
-        <item itemvalue="Application.IRLsampler" />
         <item itemvalue="Application.episode_parser" />
+        <item itemvalue="Application.IRLsampler" />
       </list>
     </recent_temporary>
   </component>
@@ -394,10 +462,53 @@
       <option name="presentableId" value="Default" />
       <updated>1515228871693</updated>
     </task>
+    <task id="LOCAL-00001" summary="Add distribution interface for future generalization of the algorithm">
+      <created>1532549888789</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1532549888789</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add distribution interface for future generalization of the algorithm">
+      <created>1532559829160</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1532559829160</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add distribution interface for future generalization of the algorithm">
+      <created>1532634109474</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1532634109474</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add distribution interface for future generalization of the algorithm">
+      <created>1532644282441</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1532644282441</updated>
+    </task>
+    <task id="LOCAL-00005" summary="After switch to gridWorld sample interface, make other classes applicable to general purpose.">
+      <created>1532644368135</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1532644368135</updated>
+    </task>
+    <task id="LOCAL-00006" summary="After switch to gridWorld sample interface, make other classes applicable to general purpose.">
+      <created>1532722355311</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1532722355311</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="451" y="23" width="989" height="873" extended-state="0" />
+    <frame x="435" y="23" width="1005" height="873" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="4" />
@@ -406,14 +517,14 @@
       <window_info anchor="right" id="Palette&#9;" order="0" />
       <window_info id="Image Layers" order="7" />
       <window_info anchor="right" id="Capture Analysis" order="2" />
-      <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.27332783" side_tool="true" weight="0.12265331" />
+      <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.27332783" side_tool="true" weight="0.7859825" />
       <window_info anchor="right" id="Maven Projects" order="1" />
-      <window_info anchor="bottom" x="0" y="45" width="637" height="851" id="Run" order="5" type="WINDOWED" weight="0.54568213" />
-      <window_info anchor="bottom" id="Version Control" order="1" show_stripe_button="false" />
+      <window_info anchor="bottom" x="0" y="45" width="673" height="851" id="Run" order="5" type="WINDOWED" weight="0.54568213" />
+      <window_info anchor="bottom" id="Version Control" order="1" />
       <window_info anchor="bottom" id="Terminal" order="2" />
       <window_info id="Capture Tool" order="0" />
       <window_info id="Designer" order="1" />
-      <window_info content_ui="combo" id="Project" order="5" visible="true" weight="0.054600608" />
+      <window_info content_ui="combo" id="Project" order="5" visible="true" weight="0.07363184" />
       <window_info id="Learn" order="3" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="6" weight="0.25" />
@@ -433,222 +544,60 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add distribution interface for future generalization of the algorithm" />
+    <MESSAGE value="After switch to gridWorld sample interface, make other classes applicable to general purpose." />
+    <option name="LAST_COMMIT_MESSAGE" value="After switch to gridWorld sample interface, make other classes applicable to general purpose." />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="21" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/IRLcode/GridWorld.java</url>
+          <line>198</line>
+          <properties />
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="42" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/BasicBehavior.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="57" column="37" selection-start-line="57" selection-start-column="37" selection-end-line="57" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/IRLsampler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1560">
-          <caret line="138" column="32" selection-start-line="138" selection-start-column="32" selection-end-line="138" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/episodeParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1185">
-          <caret line="121" selection-start-line="121" selection-end-line="121" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#parseEnvironment#0;class#episodeParser#0" />
-            <element signature="method#parseTrajectory#0;class#episodeParser#0" />
-            <element signature="method#getStartPosition#0;class#episodeParser#0" />
-            <element signature="method#getDirection#0;class#episodeParser#0" />
-            <element signature="method#getPolicyFromTrajectory#0;class#episodeParser#0" />
-            <element signature="method#standardizeAccessedStates#0;class#episodeParser#0" />
-            <element signature="method#getTransitionProbs#0;class#episodeParser#0" />
-            <element signature="method#getPpi#0;class#episodeParser#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demos/5demo0.episode">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="37" lean-forward="true" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demos/4demo0.episode">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="37" lean-forward="true" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demos/2demo0.episode">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/IRLExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
-          <caret line="76" column="93" selection-start-line="76" selection-start-column="93" selection-end-line="76" selection-end-column="93" />
-          <folding>
-            <element signature="docComment;class#IRLExample#0" />
-            <element signature="docComment;method#runIRL#0;class#IRLExample#0" />
-            <element signature="method#visualizeRF#0;class#IRLExample#0" />
-            <element signature="method#getPolicy#0;class#IRLExample#0" />
-            <element signature="docComment;method#basicState#0;class#IRLExample#0" />
-            <element signature="method#basicState#0;class#IRLExample#0" />
-            <element signature="class#LeftSideGen#0;class#IRLExample#0" />
-            <element signature="class#LocationFeatures#0;class#IRLExample#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="40" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/IRLsampler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1230">
-          <caret line="82" column="7" lean-forward="true" selection-start-line="82" selection-start-column="7" selection-end-line="82" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="32" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/IRLExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3315">
-          <caret line="253" selection-start-line="253" selection-end-line="253" />
-          <folding>
-            <element signature="docComment;class#IRLExample#0" />
-            <element signature="docComment;method#runIRL#0;class#IRLExample#0" />
-            <element signature="method#visualizeRF#0;class#IRLExample#0" />
-            <element signature="method#getPolicy#0;class#IRLExample#0" />
-            <element signature="docComment;method#basicState#0;class#IRLExample#0" />
-            <element signature="method#basicState#0;class#IRLExample#0" />
-            <element signature="class#LeftSideGen#0;class#IRLExample#0" />
-            <element signature="class#LocationFeatures#0;class#IRLExample#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/IRLsampler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="36" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/demos/2demo0.episode" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/IRLExample.java" />
+    <entry file="file://$PROJECT_DIR$/pom.xml" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/GridRSampler.java" />
+    <entry file="file://$PROJECT_DIR$/pom.xml" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/IRLExample.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/GridRSampler.java" />
+    <entry file="file://$PROJECT_DIR$/pom.xml" />
+    <entry file="file://$PROJECT_DIR$/pom.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/java/AbsentSupervisor/ASGridState.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/AbsentSupervisor/ASGridWorld.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/AbsentSupervisor/ASGridState.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/AbsentSupervisor/ASGridWorld.java" />
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="18" lean-forward="true" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/java/AbsentSupervisor/ASGridState.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/AbsentSupervisor/ASGridWorld.java" />
     <entry file="file://$PROJECT_DIR$/../testProject/src/main/java/testProj/HelloGridWorld.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/AbsentSupervisor/ASGridState.java" />
     <entry file="file://$PROJECT_DIR$/../testProject/src/main/java/testProj/PlotTest.java" />
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="38" column="10" selection-start-line="38" selection-start-column="10" selection-end-line="38" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml" />
     <entry file="file://$PROJECT_DIR$/../testProject/src/main/java/testProj/HelloGridWorld.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/AbsentSupervisor/ASGridWorld.java" />
     <entry file="file://$PROJECT_DIR$/../testProject/src/main/java/testProj/HelloGridWorld.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/AbsentSupervisor/EXGridState2.java" />
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="21" lean-forward="true" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml" />
     <entry file="file://$PROJECT_DIR$/../testProject/pom.xml" />
     <entry file="file://$PROJECT_DIR$/../testProject/src/main/java/testProj/PlotTest.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/AbsentSupervisor/ASGridState.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/AbsentSupervisor/ASGridWorld.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/AbsentSupervisor/README.txt" />
-    <entry file="file://$PROJECT_DIR$/demos/3demo1.episode">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="14" lean-forward="true" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demos/base_demo0.episode">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="37" lean-forward="true" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demos/3demo0.episode">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="37" lean-forward="true" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demos/3demo2.episode">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="37" lean-forward="true" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demos/2demo0.episode">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demos/5demo0.episode">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="37" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/demos/3demo1.episode" />
+    <entry file="file://$PROJECT_DIR$/demos/3demo0.episode" />
+    <entry file="file://$PROJECT_DIR$/demos/3demo2.episode" />
+    <entry file="file://$PROJECT_DIR$/demos/2demo0.episode" />
+    <entry file="file://$PROJECT_DIR$/demos/5demo0.episode" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar!/org/apache/commons/math3/linear/MatrixUtils.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="254">
@@ -656,13 +605,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demos/4demo0.episode">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="689">
-          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/demos/4demo0.episode" />
     <entry file="file://$PROJECT_DIR$/../../../../IRL/optimization/ConvexMaximizationProblem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
@@ -677,81 +620,105 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/pom.xml" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/PlotTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="36" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/episodeParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="35" selection-start-line="35" selection-start-column="35" selection-end-line="35" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#parseEnvironment#0;class#episodeParser#0" />
-            <element signature="method#parseTrajectory#0;class#episodeParser#0" />
-            <element signature="method#getStartPosition#0;class#episodeParser#0" />
-            <element signature="method#getDirection#0;class#episodeParser#0" />
-            <element signature="method#getPolicyFromTrajectory#0;class#episodeParser#0" />
-            <element signature="method#standardizeAccessedStates#0;class#episodeParser#0" />
-            <element signature="method#getTransitionProbs#0;class#episodeParser#0" />
-            <element signature="method#getPpi#0;class#episodeParser#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/IRLsampler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2385">
-          <caret line="215" column="57" selection-start-line="215" selection-start-column="57" selection-end-line="215" selection-end-column="57" />
-          <folding>
-            <element signature="method#binSearch#0;class#IRLsampler#0" />
-            <element signature="method#positiveResult#0;class#IRLsampler#0" />
-            <element signature="method#withinRange#0;class#IRLsampler#0" />
-            <element signature="method#generateRandomDirecVector#0;class#IRLsampler#0" />
-            <element signature="method#randDouble#0;class#IRLsampler#0" />
-          </folding>
+        <state relative-caret-position="60">
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/BasicBehavior.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="71" column="39" selection-start-line="71" selection-start-column="39" selection-end-line="71" selection-end-column="39" />
+        <state relative-caret-position="375">
+          <caret line="73" column="97" selection-start-line="73" selection-start-column="65" selection-end-line="73" selection-end-column="97" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/ENVselection.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/episodeParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="869">
-          <caret line="347" column="17" lean-forward="true" selection-start-line="347" selection-start-column="17" selection-end-line="347" selection-end-column="17" />
+        <state relative-caret-position="268">
+          <caret line="296" column="45" selection-start-line="296" selection-start-column="35" selection-end-line="296" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/DomainDistribution.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
           <folding>
-            <element signature="method#sampleEnv#0;class#ENVselection#0" />
-            <element signature="method#sampleR#0;class#ENVselection#0" />
-            <element signature="method#getPiVector#0;class#ENVselection#0" />
-            <element signature="method#parseActionProb#0;class#ENVselection#0" />
-            <element signature="method#addActionProb#0;class#ENVselection#0" />
-            <element signature="method#getRFvector#0;class#ENVselection#0" />
-            <element signature="method#visualizePilicy#0;class#ENVselection#0" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/RewardSampler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="39" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demos/base_demo0.episode">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/GridRSampler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="139" column="27" selection-start-line="139" selection-start-column="27" selection-end-line="139" selection-end-column="27" />
+          <folding>
+            <element signature="e#6954#7013#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/edu/brown/cs/burlap/burlap/3.0.0/burlap-3.0.0.jar!/burlap/shell/visual/VisualExplorer.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="107" selection-start-line="107" selection-end-line="107" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/IRLExample.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
+        <state relative-caret-position="135">
+          <caret line="69" column="35" selection-start-line="69" selection-start-column="35" selection-end-line="69" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/GridWorld.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="137" column="45" selection-start-line="137" selection-start-column="45" selection-end-line="137" selection-end-column="45" />
           <folding>
-            <element signature="docComment;class#IRLExample#0" />
-            <element signature="docComment;method#runIRL#0;class#IRLExample#0" />
-            <element signature="method#visualizeRF#0;class#IRLExample#0" />
-            <element signature="method#getPolicy#0;class#IRLExample#0" />
-            <element signature="docComment;method#basicState#0;class#IRLExample#0" />
-            <element signature="method#basicState#0;class#IRLExample#0" />
-            <element signature="class#LeftSideGen#0;class#IRLExample#0" />
-            <element signature="class#LocationFeatures#0;class#IRLExample#0" />
+            <element signature="method#GridWorld#0;class#GridWorld#0" />
+            <element signature="method#sample#0;class#GridWorld#0" />
+            <element signature="method#getState#0;class#GridWorld#0" />
+            <element signature="method#getPpi#0;class#GridWorld#0" />
+            <element signature="method#getTransitionProb#0;class#GridWorld#0" />
+            <element signature="method#launchExplorer#0;class#GridWorld#0" />
+            <element signature="method#visualizePolicy#0;class#GridWorld#0" />
+            <element signature="class#GridModel#0;class#GridWorld#0" />
+            <element signature="class#LeftSideGen#0;class#GridWorld#0" />
+            <element signature="method#setParams#0;class#LeftSideGen#0;class#GridWorld#0" />
+            <element signature="method#generateState#0;class#LeftSideGen#0;class#GridWorld#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/IRLcode/ENVselection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="836">
+          <caret line="201" column="7" lean-forward="true" selection-start-line="201" selection-start-column="7" selection-end-line="201" selection-end-column="7" />
+          <folding>
+            <element signature="method#selectEnv#0;class#ENVselection#0" />
+            <element signature="method#getMaxNumValidRf#0;class#ENVselection#0" />
+            <element signature="method#getNumValidRf#0;class#ENVselection#0" />
+            <element signature="method#getRFvector#0;class#ENVselection#0" />
+            <element signature="class#LocationFeatures#0;class#ENVselection#0" />
           </folding>
         </state>
       </provider>
