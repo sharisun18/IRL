@@ -47,10 +47,9 @@ import static org.apache.commons.lang.math.RandomUtils.nextDouble;
 import static org.apache.commons.math3.linear.MatrixUtils.createRealIdentityMatrix;
 import static org.apache.commons.math3.linear.MatrixUtils.inverse;
 
-public class IRLsampler {
+public class GridRSampler implements RewardSampler {
 
     public static int Nloc;
-    public static int Nrf;
 
     public static int maxX;
     public static int maxY;
@@ -58,10 +57,9 @@ public class IRLsampler {
     public static String pathToEpisodes = "demos";
 
 
-    public IRLsampler(int Nloc, int Nrf, int maxX, int maxY) {
+    public GridRSampler(int Nloc, int maxX, int maxY) {
 
         this.Nloc = Nloc;
-        this.Nrf  = Nrf;        // total number of rewards to be sampled
         this.maxX = maxX;
         this.maxY = maxY;
     }
@@ -73,8 +71,8 @@ public class IRLsampler {
     / ---------------------------------------------------------------------------------------------------------------- /
     **/
 
-
-    public RealVector[] sampleRewards(RealMatrix[] TransP, RealMatrix Ppi) {
+    @Override
+    public RealVector[] sampleRewards(int Nrf, RealMatrix[] TransP, RealMatrix Ppi) {
 
         System.out.format("\n ----- Sampling rewards: ----- \n\n");
         RealVector[] sampled_rewards = new RealVector[Nrf];
@@ -101,7 +99,7 @@ public class IRLsampler {
     }
 
 
-    public double getPosEdgeT(RealVector baseR, RealVector dirU, RealMatrix[] TransP, RealMatrix Ppi, double thd) {
+    private double getPosEdgeT(RealVector baseR, RealVector dirU, RealMatrix[] TransP, RealMatrix Ppi, double thd) {
 
         System.out.format("exp | positive\n\n");
         double hightPos = expSearch(1E-4, baseR, dirU, TransP, Ppi);
@@ -112,7 +110,7 @@ public class IRLsampler {
     }
 
 
-    public double getNegEdgeT(RealVector baseR, RealVector dirU, RealMatrix[] TransP, RealMatrix Ppi, double thd) {
+    private double getNegEdgeT(RealVector baseR, RealVector dirU, RealMatrix[] TransP, RealMatrix Ppi, double thd) {
 
         System.out.format("\nexp | negative\n\n");
         double hightNeg = expSearch(-1E-4, baseR, dirU, TransP, Ppi);

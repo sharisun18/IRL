@@ -56,32 +56,28 @@ import java.lang.System;
 
 public class ENVselection {
 
-    public static int Nround = 2;
+    private static int Nround = 2;
 
-    public static int Nenv = 1;
-    public static int Nrf  = 1;
-    public static int Nloc = 3;
+    private static int Nrf  = 1;
+    private static int Nloc = 3;
 
-    public static int maxX = 5;
-    public static int maxY = 5;
+    private static int maxX = 5;
+    private static int maxY = 5;
 
-    public static GridWorldDomain gwd;
+    private static GridWorldDomain gwd;
     public static OOSADomain domain;
 
-    public static RealMatrix[] TransP;
+//    public DomainDistribution DD;
+    public GridWorld DD = new GridWorld(5, 5);
 
-//    public static String pathToEpisodes;  // TODO: set total rewards to be sampled
+    public GridRSampler SAMPLER = new GridRSampler(3, 5, 5);
 
-    // constructor
+
     public ENVselection() {
-
-//        pathToEpisodes = "demos";
 
         gwd = new GridWorldDomain(maxX, maxY);
         gwd.setNumberOfLocationTypes(Nloc);
         domain = gwd.generateDomain();
-
-        TransP = getTransitionProbs();
     }
 
 
@@ -93,20 +89,16 @@ public class ENVselection {
      *  locations type_2 is the most possible one (denoting paths)
      *  locations type_0 & type_1 denote pass & forbidden states (start & end states)
      */
-    public static SADomain[] sampleEnv() {
+    public SADomain[] sampleEnv(int Nenv) {
 
-        GridWorld gridWorld = new GridWorld(5, 5);
         SADomain[] ENV = new SADomain[Nenv];
-
-        for (int k = 0; k < Nenv; k++) {
-            ENV[k] = gridWorld.sample();
-        }
+        for (int k = 0; k < Nenv; k++) { ENV[k] = DD.sample(); }
         return ENV;
     }
 
 
-    public static LinearStateDifferentiableRF[] sampleR(int numRoundExecuted,
-                                                        GridWorldState[] observedEs, int[][] observedTs) {              // TODO
+    public LinearStateDifferentiableRF[] sampleR(int numRoundExecuted,
+                                                 SADomain[] observedEs, int[][] observedTs) {              // TODO
 
         LinearStateDifferentiableRF[] Rs       = new LinearStateDifferentiableRF[Nrf];
         LocationFeatures              features = new LocationFeatures(domain, Nloc);
@@ -123,27 +115,19 @@ public class ENVselection {
     }
 
 
-    /**
-     / --------------------------------------------------------------------------------------------------------------- /
-     /                                              Interactive Process                                                /
-     / --------------------------------------------------------------------------------------------------------------- /
-     **/
+    public void interactiveIRL() {
 
-
-    public void interactiveIRL() throws FileNotFoundException {
-
-        GridWorldState[] observedEs = new GridWorldState[Nround];
-        int[][]          observedTs = new int[Nround][3]; // [Nround][{x, y, direc}]
+        SADomain[] observedEs = new SADomain[Nround];
+        int[][]    observedTs = new int[Nround][3];
 
         int numRoundExecuted = 0;
         LinearStateDifferentiableRF[] Rs = sampleR( numRoundExecuted, observedEs, observedTs );
 
         while (numRoundExecuted < Nround) {
 
-            GridWorldState newE = selectEnv(Rs, numRoundExecuted, observedEs, observedTs);
+            SADomain newE = selectEnv(Rs, numRoundExecuted, observedEs, observedTs);
 
-            IRLExample ex = new IRLExample(newE);
-            ex.launchExplorer();
+            DD.launchExplorer(newE);
 
 
 
@@ -155,10 +139,10 @@ public class ENVselection {
     }
 
 
-    public GridWorldState selectEnv(LinearStateDifferentiableRF[] Rs, int totalRound,
-                                    GridWorldState[] observedEs, int[][] observedTs) {
+    public SADomain selectEnv(LinearStateDifferentiableRF[] Rs, int totalRound,
+                                    SADomain[] observedEs, int[][] observedTs) {
 
-        GridWorldState[] Es = sampleEnv();
+        SADomain[] Es = sampleEnv(1);
 
         int maxValidRfOfEnv = 0; int bestEnv = 0;                                                                                                // TODO init env cannot be an arbitrary env
 
@@ -170,21 +154,19 @@ public class ENVselection {
         return Es[bestEnv];
     }
 
-    public int getMaxNumValidRf(LinearStateDifferentiableRF[] Rs, GridWorldState[] Es, int EnvId) {
+    public int getMaxNumValidRf(LinearStateDifferentiableRF[] Rs, SADomain[] Es, int EnvId) {
 
-        GridWorldState CurrentEnv = Es[EnvId];
+        SADomain currentEnv = Es[EnvId];
         int maxNumValidRf = 0;
 
         for (int j = 0; j < Rs.length; j++) {
                                                                                                                         // TODO
             DifferentiableVI dplanner = getDPlanner(Rs[j]);                                                             // TODO
-            BoltzmannQPolicy policy = dplanner.planFromState(CurrentEnv);
+            BoltzmannQPolicy policy = dplanner.planFromState(DD.getState(currentEnv));
 
-//            visualizePilicy(CurrentEnv, dplanner, policy);
+            RealMatrix Ppi = DD.getPpi(policy, currentEnv);
 
-            RealMatrix Ppi = getPpi(policy, Es[0].touchLocations());
-
-            int numValidRf = getNumValidRf(Rs, TransP, Ppi);
+            int numValidRf = getNumValidRf(Rs, DD.getTransP(), Ppi);
             if (numValidRf > maxNumValidRf) { maxNumValidRf = numValidRf; }
         }
         return maxNumValidRf;
@@ -194,9 +176,9 @@ public class ENVselection {
     public int getNumValidRf(LinearStateDifferentiableRF[] Rs, RealMatrix[] TransP, RealMatrix Ppi) {
 
         int numValidRf = 0;
-        IRLsampler Rsampler = new IRLsampler(Nloc, Nrf, maxX, maxY);
+
         for (LinearStateDifferentiableRF rf : Rs) {
-            if ( Rsampler.isValid(getRFvector(rf), TransP, Ppi) ) { numValidRf += 1; }                                 // TODO math problem
+            if ( SAMPLER.isValid(getRFvector(rf), TransP, Ppi) ) { numValidRf += 1; }                                 // TODO math problem
         }
         return numValidRf;
     }
@@ -205,28 +187,8 @@ public class ENVselection {
     public static DifferentiableVI getDPlanner(LinearStateDifferentiableRF rf) {
 
         return new DifferentiableVI(domain, rf, 0.99, 10, new SimpleHashableStateFactory(), 0.01, 100);
-
 //        return new ValueIteration(domain, 0.99, new SimpleHashableStateFactory(), 0.01, 100);
-
-//        return new DifferentiableSparseSampling(domain, rf, 0.99, new SimpleHashableStateFactory(),
-//                                                10, -1, 10);
-    }
-
-
-    public RealMatrix getPpi(BoltzmannQPolicy policy, List<GridLocation> locations) {
-
-        double[][] Ppi = new double[maxX*maxY][maxX*maxY];
-
-        for (int r = 0; r < maxX*maxY; r++) {
-            for (int c = 0; c < maxX*maxY; c++) {
-                for (int i = 0; i < 4; i++) {
-                    Action action = (Action)domain.getAction(GridWorldDomain.ACTION_NORTH);
-                    State currentState = new GridWorldState( new GridAgent(r, c), locations);
-                    Ppi[r][c] += policy.actionProb(currentState, action) * TransP[i].getEntry(r,c);
-                }
-            }
-        }
-        return MatrixUtils.createRealMatrix(Ppi);
+//        return new DifferentiableSparseSampling(domain, rf, 0.99, new SimpleHashableStateFactory(), 10, -1, 10);
     }
 
 
@@ -238,18 +200,6 @@ public class ENVselection {
             rf_[i] = rf.getParameter(i);
         }
         return new ArrayRealVector(rf_);
-    }
-
-
-    public static void visualizePilicy(State initialState,
-                                       DifferentiableVI dplanner, BoltzmannQPolicy P) {
-
-        SimpleHashableStateFactory hashingFactory = new SimpleHashableStateFactory();
-        List<State> allStates = StateReachability.getReachableStates(initialState, domain, hashingFactory);
-
-        ValueFunctionVisualizerGUI gui = GridWorldDomain.getGridWorldValueFunctionVisualization(
-                allStates, 5, 5, dplanner, P);
-        gui.initGUI();
     }
 
     /**
@@ -307,85 +257,6 @@ public class ENVselection {
     }
 
 
-    public RealMatrix[] getTransitionProbs() {
-
-        System.out.format("Getting transition probabilities\n\n");
-
-        double[][][] TranP = new double[4][maxX*maxY][maxX*maxY];
-
-        // Inner square
-        for (int r = 0; r < maxX*maxY; r++) {
-            int startx = r / maxY; int starty = r % maxY;
-            if (starty < maxY-1) { TranP[0][r][r + 1]    = 1.0; } else { TranP[0][r][r] = 1.0; }
-            if (startx < maxX-1) { TranP[1][r][r + maxY] = 1.0; } else { TranP[1][r][r] = 1.0; }
-            if (starty > 0)      { TranP[2][r][r - 1]    = 1.0; } else { TranP[2][r][r] = 1.0; }
-            if (startx > 0)      { TranP[3][r][r - maxY] = 1.0; } else { TranP[3][r][r] = 1.0; }
-        }
-
-        // Print out all transition probs for all 4 directions                                                  // TODO
-//        for (int c = 0; c < 4; c++) {
-//            System.out.format("DIRECTION: %d\n\n", c);
-//
-//            for (int i = 0; i < maxX * maxY; i++) {
-//                for (int j = 0; j < maxX * maxY; j++) {
-//                    System.out.format("%.2f ", TranP[c][i][j]);
-//                }
-//                System.out.format("\n");
-//            }
-//            System.out.format("\n");
-//        }
-
-
-        // Stored as Apache matrix
-        RealMatrix[] TranP_M = new RealMatrix[4];
-        for (int i = 0; i < 4; i++) { TranP_M[i] = MatrixUtils.createRealMatrix(TranP[i]); }
-
-        return TranP_M;
-    }
-
-//    private static double[] parseActionProb(List<ActionProb> actionProbs) {
-//
-//        double[] aProbs = new double[4];
-//
-//        aProbs[0] = Double.parseDouble( actionProbs.get(0).toString().split(": ")[0] );
-//        aProbs[1] = Double.parseDouble( actionProbs.get(2).toString().split(": ")[0] );
-//        aProbs[2] = Double.parseDouble( actionProbs.get(1).toString().split(": ")[0] );
-//        aProbs[3] = Double.parseDouble( actionProbs.get(3).toString().split(": ")[0] );
-//
-//        return aProbs;
-//    }
-
-
-//    private static double[] addActionProb(double[] pi, int x, int y, double[] aProbs) {
-//
-//        int id = 4 * (maxX*x + y); // start index
-//
-//        for (int i = 0; i < 4; i++) { pi[id+i] = aProbs[i]; }
-//
-////        System.arraycopy(aProbs, 0, pi, id, 4);
-//
-//        return pi;
-//    }
-
-
-//    public static double[] getPiVector(BoltzmannQPolicy policy, List<GridLocation> locations) {
-//
-//        double[] pi = new double[4*maxX*maxY];
-//
-//        for (int x = 0; x < maxX; x++) {
-//            for (int y = 0; y < maxY; y++) {
-//
-//                GridWorldState curState = new GridWorldState( new GridAgent(x, y), locations );
-//                List<ActionProb> actionProbs = policy.policyDistribution(curState);
-//                double[] aProbs = parseActionProb(actionProbs);
-//                pi = addActionProb(pi, x, y, aProbs);
-//            }
-//        }
-//        return pi;
-//    }
-
-
-
     /**
      / --------------------------------------------------------------------------------------------------------------- /
      /                                                      Main                                                       /
@@ -394,81 +265,8 @@ public class ENVselection {
 
     public static void main(String[] args) throws IOException {
 
-        ENVselection     ES = new ENVselection();
+        ENVselection ES = new ENVselection();
         ES.interactiveIRL();
-
-
-//        GridWorldState[] Es = sampleEnv();
-
-        //  main test
-
-        /*
-        GridWorldState[] Es = sampleEnv();
-
-
-        // domain
-        GridWorldDomain gwd = new GridWorldDomain(maxX, maxY);
-        gwd.setNumberOfLocationTypes(Nloc);
-        OOSADomain domain = gwd.generateDomain();
-
-
-        // reward function
-        IRLExample.LocationFeatures features = new IRLExample.LocationFeatures(domain, Nloc);
-        LinearStateDifferentiableRF rf = new LinearStateDifferentiableRF(features, Nloc);
-        for (int j = 0; j < rf.numParameters(); j++) {
-            rf.setParameter(j, RandomFactory.getMapped(0).nextDouble() * 2.0 - 1.0);
-        }
-
-
-        // policy
-        DifferentiableSparseSampling dplanner = new DifferentiableSparseSampling(domain, rf, 0.99,
-                new SimpleHashableStateFactory(),
-                10, -1, 10);
-        GreedyQPolicy qp = new GreedyQPolicy(dplanner);
-
-
-        // policy vis
-        State initialState = Es[0];
-        SimpleHashableStateFactory hashingFactory = new SimpleHashableStateFactory();
-        List<State> allStates = StateReachability.getReachableStates(initialState, domain, hashingFactory);
-
-
-
-        ValueFunctionVisualizerGUI gui = GridWorldDomain.getGridWorldValueFunctionVisualization(
-                                         allStates, 5, 5, dplanner, qp);
-
-
-        // test
-        GridWorldState curState = new GridWorldState( new GridAgent(0, 0), Es[0].touchLocations() );
-        List<ActionProb> actionProbs = qp.policyDistribution(curState);
-        for (ActionProb actionProb : actionProbs) { System.out.format("%s\n", actionProb.toString()); }
-
-        curState = new GridWorldState( new GridAgent(0, 1), Es[0].touchLocations() );
-        actionProbs = qp.policyDistribution(curState);
-        for (ActionProb actionProb : actionProbs) { System.out.format("%s\n", actionProb.toString()); }
-
-        curState = new GridWorldState( new GridAgent(0, 2), Es[0].touchLocations() );
-        actionProbs = qp.policyDistribution(curState);
-        for (ActionProb actionProb : actionProbs) { System.out.format("%s\n", actionProb.toString()); }
-
-        curState = new GridWorldState( new GridAgent(0, 3), Es[0].touchLocations() );
-        actionProbs = qp.policyDistribution(curState);
-        for (ActionProb actionProb : actionProbs) { System.out.format("%s\n", actionProb.toString()); }
-
-
-        gui.initGUI();
-
-        */
-
-        /* For each environment,
-         *     1. Get a set of reward functions from episodes for this environment (for now just one RF),
-         *     2. Get policy for each ENV-RF pair.
-         */
-//        for (GridWorldState env : Es) {
-//            IRLExample EX = new IRLExample(env);
-//
-//            EX.launchExplorer(); //choose this to record demonstrations
-//        }
 
     }
 

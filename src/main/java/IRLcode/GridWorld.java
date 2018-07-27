@@ -35,6 +35,7 @@ import burlap.mdp.core.oo.propositional.PropositionalFunction;
 import burlap.mdp.core.oo.state.OOState;
 import burlap.mdp.core.state.State;
 import burlap.mdp.singleagent.SADomain;
+import burlap.mdp.singleagent.common.VisualActionObserver;
 import burlap.mdp.singleagent.environment.EnvironmentOutcome;
 import burlap.mdp.singleagent.environment.SimulatedEnvironment;
 import burlap.mdp.singleagent.model.FullModel;
@@ -61,6 +62,7 @@ public class GridWorld implements DomainDistribution {
 
     int maxX;
     int maxY;
+    int Nloc = 3;
 
     public GridWorld(int maxX, int maxY) {
         this.maxX = maxX;
@@ -93,9 +95,76 @@ public class GridWorld implements DomainDistribution {
 
         return domain;
     }
+    @Override
+    public GridWorldState getState(SADomain domain) {
+        return new GridWorldState( new GridAgent(0,0), ((GridModel)domain.getModel()).locations );
+    }
+    @Override
+    public RealMatrix getPpi(Object policy, SADomain domain) {
 
+        double[][]   Ppi    = new double[maxX*maxY][maxX*maxY];
+        RealMatrix[] TransP = getTransP();
 
-    public class GridModel implements SampleModel {
+        for (int r = 0; r < maxX*maxY; r++) {
+            for (int c = 0; c < maxX*maxY; c++) {
+                for (int i = 0; i < 4; i++) {
+                    Action action = (Action)domain.getAction(GridWorldDomain.ACTION_NORTH);
+                    State currentState = new GridWorldState( new GridAgent(r, c), getLocations(domain) );
+                    Ppi[r][c] += ((BoltzmannQPolicy)policy).actionProb(currentState, action) * TransP[i].getEntry(r,c);
+                }
+            }
+        }
+        return MatrixUtils.createRealMatrix(Ppi);
+    }
+    @Override
+    public RealMatrix[] getTransP() {
+
+        double[][][] TranP = new double[4][maxX*maxY][maxX*maxY];
+
+        for (int r = 0; r < maxX*maxY; r++) {
+            int startx = r / maxY; int starty = r % maxY;
+            if (starty < maxY-1) { TranP[0][r][r + 1]    = 1.0; } else { TranP[0][r][r] = 1.0; }
+            if (startx < maxX-1) { TranP[1][r][r + maxY] = 1.0; } else { TranP[1][r][r] = 1.0; }
+            if (starty > 0)      { TranP[2][r][r - 1]    = 1.0; } else { TranP[2][r][r] = 1.0; }
+            if (startx > 0)      { TranP[3][r][r - maxY] = 1.0; } else { TranP[3][r][r] = 1.0; }
+        }
+        RealMatrix[] TranPMtx = new RealMatrix[4];
+        for (int i = 0; i < 4; i++) { TranPMtx[i] = MatrixUtils.createRealMatrix(TranP[i]); }
+
+        return TranPMtx;
+    }
+    @Override
+    public void launchExplorer(SADomain env) {
+
+        GridWorldDomain gwd = new GridWorldDomain(maxX, maxY);
+        gwd.setNumberOfLocationTypes(Nloc);
+
+        State bs = new GridWorldState(new GridAgent(0,0), ((GridModel)env.getModel()).locations);
+        StateGenerator sg = new LeftSideGen(5, bs);
+
+        Visualizer v = GridWorldVisualizer.getVisualizer(gwd.getMap());
+
+        SimulatedEnvironment e = new SimulatedEnvironment(env, sg);
+        VisualExplorer exp = new VisualExplorer(env, e, v, 800, 800);
+        exp.addKeyAction("w", GridWorldDomain.ACTION_NORTH, "");
+        exp.addKeyAction("s", GridWorldDomain.ACTION_SOUTH, "");
+        exp.addKeyAction("d", GridWorldDomain.ACTION_EAST,  "");
+        exp.addKeyAction("a", GridWorldDomain.ACTION_WEST,  "");
+
+        exp.initGUI();
+    }
+    @Override
+    public void visualizePolicy(SADomain domain, Object policy, State initialState, DifferentiableVI dplanner) {
+
+        SimpleHashableStateFactory hashingFactory = new SimpleHashableStateFactory();
+        List<State> allStates = StateReachability.getReachableStates(initialState, domain, hashingFactory);
+
+        ValueFunctionVisualizerGUI gui = GridWorldDomain.getGridWorldValueFunctionVisualization(
+                                         allStates, 5, 5, dplanner, (BoltzmannQPolicy)policy);
+        gui.initGUI();
+    }
+
+    private class GridModel implements SampleModel {
 
         GridLocation[] locations;
 
@@ -171,6 +240,37 @@ public class GridWorld implements DomainDistribution {
             return -1;
         }
     }
+
+    private static class LeftSideGen implements StateGenerator {
+
+        protected int height;
+        protected State sourceState;
+
+
+        public LeftSideGen(int height, State sourceState){
+            this.setParams(height, sourceState);
+        }
+
+        public void setParams(int height, State sourceState){
+            this.height = height;
+            this.sourceState = sourceState;
+        }
+
+        public State generateState() {
+
+            GridWorldState s = (GridWorldState)this.sourceState.copy();
+
+            int h = RandomFactory.getDefault().nextInt(this.height);
+            s.touchAgent().y = h;
+
+            return s;
+        }
+    }
+
+    private GridLocation[] getLocations(SADomain domain) {
+        return ((GridModel)domain.getModel()).locations;
+    }
+
 }
 
 

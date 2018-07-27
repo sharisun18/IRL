@@ -24,6 +24,7 @@ import burlap.mdp.core.oo.propositional.GroundedProp;
 import burlap.mdp.core.oo.propositional.PropositionalFunction;
 import burlap.mdp.core.oo.state.OOState;
 import burlap.mdp.core.state.State;
+import burlap.mdp.singleagent.SADomain;
 import burlap.mdp.singleagent.environment.SimulatedEnvironment;
 import burlap.mdp.singleagent.oo.OOSADomain;
 import burlap.shell.BurlapShell;
@@ -74,25 +75,6 @@ public class IRLExample {
         State bs = this.basicState();
         this.sg = new LeftSideGen(5, bs);
         this.v = GridWorldVisualizer.getVisualizer(this.gwd.getMap());
-    }
-
-
-    public IRLExample(GridWorldState env){
-
-        Nloc = 3;
-        maxX = maxY = 5;
-
-        this.gwd = new GridWorldDomain(maxX, maxY);
-        this.gwd.setNumberOfLocationTypes(Nloc);
-//        gwd.makeEmptyMap();
-        this.domain = gwd.generateDomain();
-
-//        State bs = this.basicState();
-        State bs = env;
-        this.sg = new LeftSideGen(5, bs);
-
-        this.v = GridWorldVisualizer.getVisualizer(this.gwd.getMap());
-
     }
 
 
