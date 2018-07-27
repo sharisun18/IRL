@@ -28,6 +28,7 @@ import burlap.domain.singleagent.gridworld.state.GridLocation;
 import burlap.domain.singleagent.gridworld.state.GridWorldState;
 import burlap.mdp.auxiliary.StateGenerator;
 import burlap.mdp.core.action.Action;
+import burlap.mdp.core.action.ActionType;
 import burlap.mdp.core.action.ActionUtils;
 import burlap.mdp.core.oo.OODomain;
 import burlap.mdp.core.oo.propositional.GroundedProp;
@@ -138,14 +139,16 @@ public class GridWorld implements DomainDistribution {
 
         GridWorldDomain gwd = new GridWorldDomain(maxX, maxY);
         gwd.setNumberOfLocationTypes(Nloc);
+        SADomain domain = gwd.generateDomain();
 
         State bs = new GridWorldState(new GridAgent(0,0), ((GridModel)env.getModel()).locations);
         StateGenerator sg = new LeftSideGen(5, bs);
 
         Visualizer v = GridWorldVisualizer.getVisualizer(gwd.getMap());
 
-        SimulatedEnvironment e = new SimulatedEnvironment(env, sg);
-        VisualExplorer exp = new VisualExplorer(env, e, v, 800, 800);
+        SimulatedEnvironment e = new SimulatedEnvironment(domain, sg);
+        VisualExplorer exp = new VisualExplorer(domain, e, v, 800, 800);
+
         exp.addKeyAction("w", GridWorldDomain.ACTION_NORTH, "");
         exp.addKeyAction("s", GridWorldDomain.ACTION_SOUTH, "");
         exp.addKeyAction("d", GridWorldDomain.ACTION_EAST,  "");

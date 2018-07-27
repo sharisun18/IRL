@@ -178,7 +178,7 @@ public class ENVselection {
         int numValidRf = 0;
 
         for (LinearStateDifferentiableRF rf : Rs) {
-            if ( SAMPLER.isValid(getRFvector(rf), TransP, Ppi) ) { numValidRf += 1; }                                 // TODO math problem
+            if ( SAMPLER.isValid(getRfVector(rf), TransP, Ppi) ) { numValidRf += 1; }                                 // TODO math problem
         }
         return numValidRf;
     }
@@ -192,13 +192,10 @@ public class ENVselection {
     }
 
 
-    public RealVector getRFvector(LinearStateDifferentiableRF rf) {
+    public RealVector getRfVector(LinearStateDifferentiableRF rf) {
 
         double[] rf_ = new double[maxX*maxY];
-
-        for (int i = 0; i < rf.numParameters(); i++) {
-            rf_[i] = rf.getParameter(i);
-        }
+        for (int i = 0; i < rf.numParameters(); i++) { rf_[i] = rf.getParameter(i); }
         return new ArrayRealVector(rf_);
     }
 
@@ -246,7 +243,6 @@ public class ENVselection {
                     return l.type;
                 }
             }
-
             return -1;
         }
 
@@ -263,7 +259,7 @@ public class ENVselection {
      / --------------------------------------------------------------------------------------------------------------- /
      **/
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         ENVselection ES = new ENVselection();
         ES.interactiveIRL();

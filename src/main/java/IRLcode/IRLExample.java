@@ -77,6 +77,22 @@ public class IRLExample {
         this.v = GridWorldVisualizer.getVisualizer(this.gwd.getMap());
     }
 
+//
+//    public IRLExample(SADomain env){
+//
+//        this.gwd = new GridWorldDomain(maxX, maxY);
+//        this.gwd.setNumberOfLocationTypes(Nloc);
+////        gwd.makeEmptyMap();
+//        this.domain = gwd.generateDomain();
+//
+////        State bs = this.basicState();
+//        State bs = env;
+//        this.sg = new LeftSideGen(5, bs);
+//
+//        this.v = GridWorldVisualizer.getVisualizer(this.gwd.getMap());
+//
+//    }
+
 
     /**
      * Creates a visual explorer that you can use to to record trajectories. Use the "`" key to reset to a random initial state
